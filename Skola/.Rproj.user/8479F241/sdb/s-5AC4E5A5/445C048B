@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: \"Analisis Exploratorio\"\noutput: html_document\n---\n\n```{r setup, include=FALSE}\n\nentradas<-acceso %>% filter(operacion==\"entrada\")\nst_entrada<-data.frame(table(entradas$dia))\ncolnames(st_entrada)<-c(\"Fecha\", \"Entradas\")\nst_entrada$Fecha<-as.Date(st_entrada$Fecha)\nst_entrada$Fecha_mes<-cut(st_entrada$Fecha,breaks = \"month\")\n\n\nsalidas<-acceso %>% filter(operacion==\"salida\")\nst_salida<-data.frame(table(salidas$dia))\ncolnames(st_salida)<-c(\"Fecha\", \"Salidas\")\nst_salida$Fecha<-as.Date(st_salida$Fecha)\nst_salida$Fecha_mes<-cut(st_salida$Fecha,breaks = \"month\")\n\nhead(st_salida)\n```\n\n```{r}\nentradas<-aggregate(st_entrada$Entradas, by=list(st_entrada$Fecha_mes), FUN=sum)\nentradas$Fecha<-as.Date(entradas$Fecha)\ncolnames(entradas)<-c(\"Fecha\", \"Entradas\")\nhead(entradas)\n\nsalidas<-aggregate(st_salida$Salidas, by=list(st_salida$Fecha_mes), FUN=sum)\nsalidas$Fecha<-as.Date(salidas$Fecha)\ncolnames(salidas)<-c(\"Fecha\", \"Salidas\")\nhead(salidas)\n\noperaciones<-merge(entradas, salidas, by=\"Fecha\")\n```\n\n```{r}\nggplot(operaciones, aes(Fecha)) + \n  geom_line(aes(y=Entradas, colour=\"Entradas\")) +\n   geom_line(aes(y=Salidas, colour=\"Salidas\"))\n```\n\n\n\n```{r}\nserie_diario<-merge(st_entrada, st_salida, by=\"Fecha\")\n\nggplot(serie_diario, aes(Fecha)) +\n  geom_line(aes(y=Entradas, colour=\"Entradas\")) +\n  geom_line(aes(y=Salidas, colour=\"Salidas\"))\n```\n\nVoy a definir una nueva variable que va a ser la diferencia entre entrada y salida en un día\n\n```{r}\nserie_diario$diff<-serie_diario$Entradas-serie_diario$Salidas\nggplot(serie_diario, aes(Fecha, diff)) + \n  geom_line()\n```\n\n```{r}\nsummary(serie_diario$diff)\n```\n\n",
+    "created" : 1509393844595.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3488828344",
+    "id" : "445C048B",
+    "lastKnownWriteTime" : 1509412775,
+    "last_content_update" : 1509412775798,
+    "path" : "~/Documents/NIEU/Skola/Analisis Exploratorio.Rmd",
+    "project_path" : "Analisis Exploratorio.Rmd",
+    "properties" : {
+        "last_setup_crc32" : "516853173a4b09c7",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

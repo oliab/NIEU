@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1509392761833.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "998B00DF",
+    "lastKnownWriteTime" : 4323255496,
+    "last_content_update" : 1509392761833,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "4E32EF08",
+        "caption" : "usuarios",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=usuarios&cache_key=4E32EF08",
+        "displayedObservations" : 1276,
+        "environment" : "",
+        "object" : "usuarios",
+        "preview" : 0,
+        "totalObservations" : 1276,
+        "variables" : 21
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

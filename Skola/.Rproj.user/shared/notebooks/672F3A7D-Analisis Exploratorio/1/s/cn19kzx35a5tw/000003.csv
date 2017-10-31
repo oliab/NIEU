@@ -1,0 +1,4 @@
+"0","serie_diario<-merge(st_entrada, st_salida, by=""Fecha"")"
+"0","ggplot(serie_diario, aes(Fecha)) +"
+"0","  geom_line(aes(y=Entradas, colour=""Entradas"")) +"
+"0","  geom_line(aes(y=Salidas, colour=""Salidas""))"

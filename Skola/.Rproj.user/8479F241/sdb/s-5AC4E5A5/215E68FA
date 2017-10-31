@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "\n## Script para carga de datos\nlibrary(readr)\nlibrary(dplyr)\nlibrary(tidyr)\nlibrary(lubridate)\nlibrary(ggplot2)\n\n\nestudiantes <- read_csv(\"~/Documents/NIEU/Skola_CDA_MongoExport_16Oct17/heroku_0n98456g.Estudiantes.csv\")\nusuarios <- read_csv(\"~/Documents/NIEU/Skola_CDA_MongoExport_16Oct17/heroku_0n98456g._User.csv\")\nacceso<-read_csv(\"~/Documents/NIEU/Skola_CDA_MongoExport_16Oct17/heroku_0n98456g.Acceso.csv\")\n\n\nusuarios<-usuarios[,20:ncol(usuarios)]\n#de accesos hay que dividir p_student\n\nacceso$id_estudiante<-substr(acceso$`_p_student`,13,nchar(acceso$`_p_student`))\nacceso$id_usuario<-substr(acceso$`_p_user`,7,nchar(acceso$`_p_user`))\n\n##Hay que dividir en fecha y hora en acceso\nacceso$escaneoOcurrido<-format(acceso$escaneoOcurrido,tz=\"America/Mexico_City\")\n\nacceso$dia <- sapply(strsplit(as.character(acceso$escaneoOcurrido), \" \"), \"[\", 1)\nacceso$hora <- sapply(strsplit(as.character(acceso$escaneoOcurrido), \" \"), \"[\", 2)\n\nacceso$dia<-as.Date(acceso$dia)\nacceso$hora<-chron(times=acceso$hora)\n##Siguientesetiquetar como entradas y salidas\n\nacceso$operacion<-\"1\"\ni<-1\n\nfor (i in 1:length(acceso$hora)){\n  if (is.na(acceso$hora[i])){\n    acceso$hora[i]<-NA\n  } else {\n    if (acceso$hora[i]<\"12:00:00\"){\n      acceso$operacion[i]<-\"entrada\"\n      i<-i+1\n    } else {\n      acceso$operacion[i]<-\"salida\"\n      i<-i+1\n    }\n  }\n}\n\n\n## Limpiando la parte de la puntualidad\n\ni<-1\n\nfor (i in 1:nrow(acceso)){\n  if (is.na(acceso$puntualidad[i])){\n    acceso$puntualidad[i]<-NA\n    i<-i+1\n  } else {\n    if (acceso$puntualidad[i]==0){\n      acceso$puntualidad[i]<-\"Ok\"\n      i<-i+1\n    } else {\n      if (acceso$puntualidad[i]==1) {\n        acceso$puntualidad[i]<-\"Tolerancia\"\n        i<-i+1\n      } else{\n        if (acceso$puntualidad[i]==2){\n          acceso$puntualidad[i]<-\"Tarde\"\n          i<-i+1\n        } else {\n          if (acceso$puntualidad[i]==9){\n            acceso$puntualidad[i]<-\"Nose\"\n            i<-i+1\n          } else {\n            acceso$puntualidad[i]<-\"Temprano\"\n            i<-i+1\n          }\n        }\n        \n      }\n    }\n  }\n}\n\n## Vamos a ver qué dia de la semana es\nacceso$dia_semana<-weekdays(acceso$dia)\n\n\n##Hay que borrar lo que se hace de prueba\n\ndomingos<-acceso %>% filter(dia_semana==\"Sunday\")\nacceso<-acceso %>% filter(dia_semana!=\"Sunday\") ## Estoy quitando todos los que están en domingo\n\n ## Ahora busco a los usuarios de prueba\n\nlista<-(c(grep(\"Prueba\", usuarios$username),grep(\"prueba\", usuarios$username)))\n\nfor (i in 1:length(lista)){\n  id_lista[i]<-usuarios$`_id`[i]\n  i<-i+1\n}\n\nacceso<- subset(acceso, !(acceso$id_usuario %in% id_lista))\n\n\n\n###Hay que pegar los accesos con los datos de usuario y alumnos\n\nacceso<-merge(acceso, estudiantes, by.x=\"id_estudiante\", by.y = \"_id\")\nacceso<-merge(prueba, usuarios, by.x=\"id_usuario\", by.y = \"_id\")\n\n##Agregando las entradas y salidas por tiempo\n\n\n\n\n\n\n",
+    "created" : 1509032960650.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4130622466",
+    "id" : "215E68FA",
+    "lastKnownWriteTime" : 1509394260,
+    "last_content_update" : 1509394260750,
+    "path" : "~/Documents/NIEU/Skola/CargayLimpieza.R",
+    "project_path" : "CargayLimpieza.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

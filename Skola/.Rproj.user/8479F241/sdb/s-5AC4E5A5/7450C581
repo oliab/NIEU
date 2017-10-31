@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1509387705775.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "7450C581",
+    "lastKnownWriteTime" : 4482287472,
+    "last_content_update" : 1509387705775,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "71C85B50",
+        "caption" : "acceso",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=acceso&cache_key=71C85B50",
+        "displayedObservations" : 143742,
+        "environment" : "",
+        "object" : "acceso",
+        "preview" : 0,
+        "totalObservations" : 143742,
+        "variables" : 13
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

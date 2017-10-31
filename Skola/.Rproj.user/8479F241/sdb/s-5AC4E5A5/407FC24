@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1509391427134.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "407FC24",
+    "lastKnownWriteTime" : 5003028805485330438,
+    "last_content_update" : 1509391427134,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "830C5A72",
+        "caption" : "estudiantes",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=estudiantes&cache_key=830C5A72",
+        "displayedObservations" : "350",
+        "environment" : "",
+        "object" : "estudiantes",
+        "preview" : "0",
+        "totalObservations" : "350",
+        "variables" : "19"
+    },
+    "relative_order" : 9,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

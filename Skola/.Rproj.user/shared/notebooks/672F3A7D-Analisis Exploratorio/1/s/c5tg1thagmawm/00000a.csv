@@ -1,0 +1,3 @@
+"0","serie_diario$diff<-serie_diario$Entradas-serie_diario$Salidas"
+"0","ggplot(serie_diario, aes(Fecha, diff)) + "
+"0","  geom_line()"

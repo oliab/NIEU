@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "i<-1\nfor(i in 1:length(usuarios$domicilio)){\n  if (is.na(usuarios$domicilio[i])){\n    usuarios$lon[i]<-\"\"\n    usuarios$lat[i]<-\"\"\n    i<-i+1\n  } else {\n    result <- geocode(usuarios$domicilio[i], output = \"latlona\", source = \"google\")\n    usuarios$lon[i]<-result[i,1]\n    usuarios$lat[i]<-result[i,2]\n    i<-i+1\n  }\n}\n\ndirecciones<-usuarios[,c(\"_id\",\"domicilio\")]\ndirecciones<-direcciones[complete.cases(direcciones), ]\ngeo_reply = geocode(direcciones$domicilio, output='all', messaging=TRUE, override_limit=TRUE)\n",
+    "created" : 1509470428977.000,
+    "dirty" : true,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "427106970",
+    "id" : "2B29F459",
+    "lastKnownWriteTime" : 8315142648826429446,
+    "last_content_update" : 1509473683765,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

@@ -1,0 +1,65 @@
+---
+title: "Analisis Exploratorio"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+
+entradas<-acceso %>% filter(operacion=="entrada")
+st_entrada<-data.frame(table(entradas$dia))
+colnames(st_entrada)<-c("Fecha", "Entradas")
+st_entrada$Fecha<-as.Date(st_entrada$Fecha)
+st_entrada$Fecha_mes<-cut(st_entrada$Fecha,breaks = "month")
+
+
+salidas<-acceso %>% filter(operacion=="salida")
+st_salida<-data.frame(table(salidas$dia))
+colnames(st_salida)<-c("Fecha", "Salidas")
+st_salida$Fecha<-as.Date(st_salida$Fecha)
+st_salida$Fecha_mes<-cut(st_salida$Fecha,breaks = "month")
+
+head(st_salida)
+```
+
+```{r}
+entradas<-aggregate(st_entrada$Entradas, by=list(st_entrada$Fecha_mes), FUN=sum)
+entradas$Fecha<-as.Date(entradas$Fecha)
+colnames(entradas)<-c("Fecha", "Entradas")
+head(entradas)
+
+salidas<-aggregate(st_salida$Salidas, by=list(st_salida$Fecha_mes), FUN=sum)
+salidas$Fecha<-as.Date(salidas$Fecha)
+colnames(salidas)<-c("Fecha", "Salidas")
+head(salidas)
+
+operaciones<-merge(entradas, salidas, by="Fecha")
+```
+
+```{r}
+ggplot(operaciones, aes(Fecha)) + 
+  geom_line(aes(y=Entradas, colour="Entradas")) +
+   geom_line(aes(y=Salidas, colour="Salidas"))
+```
+
+
+
+```{r}
+serie_diario<-merge(st_entrada, st_salida, by="Fecha")
+
+ggplot(serie_diario, aes(Fecha)) +
+  geom_line(aes(y=Entradas, colour="Entradas")) +
+  geom_line(aes(y=Salidas, colour="Salidas"))
+```
+
+Voy a definir una nueva variable que va a ser la diferencia entre entrada y salida en un día
+
+```{r}
+serie_diario$diff<-serie_diario$Entradas-serie_diario$Salidas
+ggplot(serie_diario, aes(Fecha, diff)) + 
+  geom_line()
+```
+
+```{r}
+summary(serie_diario$diff)
+```
+
