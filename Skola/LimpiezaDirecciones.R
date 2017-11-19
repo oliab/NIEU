@@ -49,6 +49,18 @@ for(i in 1:nrow(usuarios)){
 
 ###vamos a ver si podemos encontrar nuevas  direcciones
 
+usuarios$longitud<-1
+i<-1
+for (i in 1:nrow(usuarios)){
+  if (is.na(usuarios$lon[i])){
+    i<-i+1
+  } else {
+    punto<-gregexpr("[.]",usuarios$lon[i])[[1]][1]
+    usuarios$longitud[i]<-substr(usuarios$lon[i],2, punto-1)
+    i<-i+1
+  }
+  
+}
 
 prueba_latlon<-subset(usuarios, usuarios$longitud!="99")
 
@@ -92,7 +104,7 @@ for (i in 1:nrow(prueba)){
     mexico<-list("Mex.", "Mexico", "México")
     mexico<-paste(unlist(mexico), collapse = "|")
     nombre<-gsub(mexico, "", nombre)
-    nombre <- mgsub(mexico,"",nombre)
+    #nombre <- mgsub(mexico,"",nombre)
     nombre<-paste(nombre,", Estado de Mexico", sep="")
     
     prueba$nuevo_dom[i]<-nombre
@@ -115,7 +127,7 @@ for (i in 1:nrow(prueba)){
     mexico<-list("Mex.", "Mexico", "México")
     mexico<-paste(unlist(mexico), collapse = "|")
     nombre<-gsub(mexico, "", nombre)
-    nombre <- mgsub(mexico,"",nombre)
+    #nombre <- mgsub(mexico,"",nombre)
     nombre<-paste(nombre,", Estado de Mexico", sep="")
     
     prueba$nuevo_dom[i]<-nombre
@@ -137,7 +149,7 @@ for (i in 1:nrow(prueba)){
     mexico<-list("Mex.", "Mexico", "México")
     mexico<-paste(unlist(mexico), collapse = "|")
     nombre<-gsub(mexico, "", nombre)
-    nombre <- mgsub(mexico,"",nombre)
+    #nombre <- mgsub(mexico,"",nombre)
     nombre<-paste(nombre,", Estado de Mexico", sep="")
     
     prueba$nuevo_dom[i]<-nombre
@@ -158,7 +170,7 @@ for (i in 1:nrow(prueba)){
     mexico<-list("Mex.", "Mexico", "México")
     mexico<-paste(unlist(mexico), collapse = "|")
     nombre<-gsub(mexico, "", nombre)
-    nombre <- mgsub(mexico,"",nombre)
+    #nombre <- mgsub(mexico,"",nombre)
     nombre<-paste(nombre,", Estado de Mexico", sep="")
     
     prueba$nuevo_dom[i]<-nombre
@@ -200,9 +212,4 @@ for(i in 1:nrow(prueba)){
 
 ####gUARDO
 
-usuarios_limpio_1ronda<-subset(usuarios, usuarios$longitud!="99")
-write.csv(prueba_limpio, file="C:/Users/ACER/Desktop/usuarioslimpio_2ronda.csv")
-
-
-sucio<-subset(prueba, prueba$longitud!="99")
 
